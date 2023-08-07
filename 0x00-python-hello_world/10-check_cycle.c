@@ -32,8 +32,8 @@ if (fast_ptr->next == list)
 break;
 list = list->next;
 }
-return (1); // Cycle detected, return 1
+return (1);
 }
 }
-return (0); // No cycle detected, return 0
+return (0);
 }
