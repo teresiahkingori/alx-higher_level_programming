@@ -9,5 +9,6 @@ def main():
     # Perform the addition and print the result
     print("{:d} + {:d} = {:d}".format(a, b, add(a, b)))
 
+
 if __name__ == "__main__":
     main()
