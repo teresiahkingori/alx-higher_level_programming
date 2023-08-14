@@ -5,5 +5,5 @@ def new_in_list(my_list, idx, element):
         return my_list
     else:
         mod_list = my_list.copy()
-	mod_list[idx] = element
+        mod_list[idx] = element
         return mod_list
