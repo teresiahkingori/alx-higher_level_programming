@@ -1,27 +1,36 @@
-#include <stdio.h>
 #include <Python.h>
+#include <object.h>
+#include <listobject.h>
 
 /**
- * print_python_list_info - prints python list info
- *
- * @p: PyObject
- * Return: no return
- */
+ *  * print_python_list_info - funtion that prints basic info about python list
+ *   * @p: the python object
+ **/
+
 void print_python_list_info(PyObject *p)
 {
-long int size, i;
-PyListObject *list;
-PyObject *item;
+    Py_ssize_t size;
+    Py_ssize_t i;
+    PyObject *item;
+    PyListObject *list;
 
-size = Py_SIZE(p);
-printf("[*] Size of the Python List = %ld\n", size);
+    if (!PyList_Check(p))
+    {
+        fprintf(stderr, "Error:Object is not a list.\n");
+        return;
+    }
 
-list = (PyListObject *)p;
-printf("[*] Allocated = %ld\n", list->allocated);
+    size = PyList_Size(p);
+    list = (PyListObject *)p;
 
-for (i = 0; i < size; i++)
-{
-item = PyList_GetItem(p, i);
-printf("Element %ld: %s\n", i, Py_TYPE(item)->tp_name);
-}
-}
+    printf("[*] Size of the Python List = %zd\n", size);
+    printf("[*] Allocated = %zd\n", list->allocated);
+
+    for (i = 0; i < size; i++)
+    {
+        item = list->ob_item[i];
+        printf("Element %zd: %s\n", i, Py_TYPE(item)->tp_name);
+    }
+    if (PyErr_Occurred())
+        PyErr_Print();
+    }
